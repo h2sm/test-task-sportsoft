@@ -1,10 +1,14 @@
 package com.h2sm.testtasksportsoft.service.impl;
 
+import com.h2sm.testtasksportsoft.dto.Book;
 import com.h2sm.testtasksportsoft.entity.BookEntity;
+import com.h2sm.testtasksportsoft.mapper.impl.BookMapper;
 import com.h2sm.testtasksportsoft.service.BaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -12,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookService implements BaseService<BookEntity> {
 
     private BookService bookService;
+    private BookMapper bookMapper;
 
     @Override
     public void create(BookEntity object) {
@@ -20,8 +25,7 @@ public class BookService implements BaseService<BookEntity> {
 
     @Override
     public BookEntity read(BookEntity object) {
-        bookService.read()
-        return null;
+        return bookService.read(object);
     }
 
     @Override
@@ -32,6 +36,18 @@ public class BookService implements BaseService<BookEntity> {
     @Override
     public void delete(BookEntity object) {
 
+    }
+
+    public Book getBookByNameContaining(String bookName) {
+
+    }
+
+    public List<Book> getBooksForThisUser() {
+
+    }
+
+    private Book mapBook(BookEntity bookEntity) {
+        return bookMapper.entityToDTO(bookEntity);
     }
 
 }
