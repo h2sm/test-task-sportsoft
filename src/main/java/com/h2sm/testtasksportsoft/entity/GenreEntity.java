@@ -8,4 +8,5 @@ import javax.persistence.Table;
 public class GenreEntity {
     private long genreId;
     private String genreName;
+    private UserEntity ownerOfEntity;
 }

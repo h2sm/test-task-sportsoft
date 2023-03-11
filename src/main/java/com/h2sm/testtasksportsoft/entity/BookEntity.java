@@ -9,5 +9,6 @@ public class BookEntity {
     private List<AuthorEntity> bookAuthors;
     private String bookDescription;
     private int amountOfBooks;
+    private UserEntity ownerOfEntity;
     //large object
 }
