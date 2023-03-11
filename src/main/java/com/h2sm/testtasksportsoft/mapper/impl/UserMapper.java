@@ -9,11 +9,19 @@ import org.springframework.stereotype.Component;
 public class UserMapper implements Mapper<UserEntity, User> {
     @Override
     public User entityToDTO(UserEntity entity) {
-        return null;
+        return User.builder()
+                .userId(entity.getUserId())
+                .userLogin(entity.getLogin())
+                .userFullName(entity.getUserFullName())
+                .build();
     }
 
     @Override
     public UserEntity DTOtoEntity(User dto) {
-        return null;
+        return UserEntity.builder()
+                .userId(dto.getUserId())
+                .userFullName(dto.getUserFullName())
+                .login(dto.getUserLogin())
+                .build();
     }
 }

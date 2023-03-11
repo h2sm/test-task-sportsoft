@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -40,12 +41,18 @@ public class BookService implements BaseService<Book> {
         bookRepository.delete(mapBook(object));
     }
 
-    public Book getBookByNameContaining(String bookName) {
-
+    public List<Book> getBookByNameContaining(String bookName) {
+        return bookRepository.getAllByBookNameContaining(bookName)
+                .stream()
+                .map(bookMapper::entityToDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Book> getBooksForThisUser() {
-
+    public List<Book> getBooksForThisUser(Long id) {
+        return bookRepository.getAllByOwnerOfEntity_UserId(id)
+                .stream()
+                .map(bookMapper::entityToDTO)
+                .collect(Collectors.toList());
     }
 
     private Book mapBook(BookEntity bookEntity) {

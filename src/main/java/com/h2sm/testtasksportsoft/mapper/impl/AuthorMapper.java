@@ -1,23 +1,27 @@
 package com.h2sm.testtasksportsoft.mapper.impl;
 
-import com.h2sm.testtasksportsoft.dto.User;
-import com.h2sm.testtasksportsoft.entity.UserEntity;
+import com.h2sm.testtasksportsoft.dto.Author;
+import com.h2sm.testtasksportsoft.entity.AuthorEntity;
 import com.h2sm.testtasksportsoft.mapper.Mapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthorMapper implements Mapper<UserEntity, User> {
+public class AuthorMapper implements Mapper<AuthorEntity, Author> {
     @Override
-    public User entityToDTO(UserEntity entity) {
-        return User.builder()
-                .userFullName(entity.getUserFullName())
-                .userId(entity.getUserId())
-                .userLogin(entity.getLogin())
+    public Author entityToDTO(AuthorEntity entity) {
+        return Author.builder()
+                .authorId(entity.getAuthorId())
+                .authorFullName(entity.getAuthorFullName())
+                .authorDescription(entity.getAuthorDescription())
                 .build();
     }
 
     @Override
-    public UserEntity DTOtoEntity(User dto) {
-        return null;
+    public AuthorEntity DTOtoEntity(Author dto) {
+        return AuthorEntity.builder()
+                .authorId(dto.getAuthorId())
+                .authorFullName(dto.getAuthorFullName())
+                .authorDescription(dto.getAuthorDescription())
+                .build();
     }
 }
