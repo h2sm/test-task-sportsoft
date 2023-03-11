@@ -3,6 +3,7 @@ package com.h2sm.testtasksportsoft.service.impl;
 import com.h2sm.testtasksportsoft.dto.Book;
 import com.h2sm.testtasksportsoft.entity.BookEntity;
 import com.h2sm.testtasksportsoft.mapper.impl.BookMapper;
+import com.h2sm.testtasksportsoft.repository.BookRepository;
 import com.h2sm.testtasksportsoft.service.BaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,29 +14,30 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class BookService implements BaseService<BookEntity> {
+public class BookService implements BaseService<Book> {
 
-    private BookService bookService;
+    private BookRepository bookRepository;
     private BookMapper bookMapper;
 
     @Override
-    public void create(BookEntity object) {
-        bookService.create(object);
+    public void create(Book book) {
+        bookRepository.save(mapBook(book));
     }
 
     @Override
-    public BookEntity read(BookEntity object) {
-        return bookService.read(object);
+    public Book read(Book book) {
+        var bookEntity = bookRepository.findById(book.getBookId()).get();
+        return mapBook(bookEntity);
     }
 
     @Override
-    public BookEntity update(BookEntity object) {
-        return null;
+    public void update(Book book) {
+        create(book);
     }
 
     @Override
-    public void delete(BookEntity object) {
-
+    public void delete(Book object) {
+        bookRepository.delete(mapBook(object));
     }
 
     public Book getBookByNameContaining(String bookName) {
@@ -48,6 +50,10 @@ public class BookService implements BaseService<BookEntity> {
 
     private Book mapBook(BookEntity bookEntity) {
         return bookMapper.entityToDTO(bookEntity);
+    }
+
+    private BookEntity mapBook(Book book) {
+        return bookMapper.DTOtoEntity(book);
     }
 
 }
