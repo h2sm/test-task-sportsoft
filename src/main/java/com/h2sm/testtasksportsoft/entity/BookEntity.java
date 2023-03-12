@@ -1,5 +1,6 @@
 package com.h2sm.testtasksportsoft.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "books")
 @NoArgsConstructor
+@AllArgsConstructor
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +28,14 @@ public class BookEntity {
     private List<GenreEntity> bookGenre;
     @OneToMany
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
-    @JoinColumn(name = "book_genre")
+    @JoinColumn(name = "book_authors")
     private List<AuthorEntity> bookAuthors;
     @Column(name = "book_description")
     private String bookDescription;
     @Column(name = "amount_of_books")
     private int amountOfBooks;
     private UserEntity ownerOfEntity;
+    @Column(name = "path_to_picture")
+    private String pathToPicture;
     //large object
 }

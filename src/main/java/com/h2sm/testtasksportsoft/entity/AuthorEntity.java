@@ -1,5 +1,6 @@
 package com.h2sm.testtasksportsoft.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "authors")
 @NoArgsConstructor
+@AllArgsConstructor
 public class AuthorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +24,7 @@ public class AuthorEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_of_entity", referencedColumnName = "user_id")
     private UserEntity ownerOfEntity;
+    @Column(name = "path_to_picture")
+    private String pathToPicture;
     //largeObject;
 }

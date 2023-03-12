@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "genre")
+@Table(name = "genres")
 public class GenreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +15,6 @@ public class GenreEntity {
     private long genreId;
     @Column(name = "genre_name")
     private String genreName;
-    @Column(name = "genre_name")
+    @Column(name = "owner")
     private UserEntity ownerOfEntity;
 }
