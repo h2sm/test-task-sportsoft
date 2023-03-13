@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +38,7 @@ public class BookService {
     }
 
     public Book getBookById(Long id){
-        return mapBook(bookRepository.findById((long) 1).get());
+        return mapBook(bookRepository.findById((id)).get());
     }
 
     public void update(Book book) {
@@ -57,6 +61,20 @@ public class BookService {
                 .stream()
                 .map(bookMapper::entityToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public void changeNumberOfBooks(Long bookId, int newNum) {
+        var book = bookRepository.findById(bookId).get();
+        book.setAmountOfBooks(newNum);
+        bookRepository.save(book);
+    }
+
+    public BufferedImage loadPicture(String pathToPicture) throws IOException {
+        return ImageIO.read(new File(pathToPicture));
+    }
+
+    public void saveImage(){
+        //ImageIO.
     }
 
     private Book mapBook(Books books) {

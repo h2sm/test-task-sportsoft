@@ -23,7 +23,7 @@ public class Books {
     @JoinTable(name = "booksauthors",
             joinColumns = {@JoinColumn(name = "book_id"),
             }, inverseJoinColumns = @JoinColumn( name="author_id"))
-    Set<Authors> listOfAuthors;
+    List<Authors> listOfAuthors;
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.ALL
@@ -32,7 +32,7 @@ public class Books {
     @JoinTable(name = "booksgenres",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = @JoinColumn( name="genre_id"))
-    Set<Genres> listOfGenres;
+    List<Genres> listOfGenres;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")

@@ -1,7 +1,6 @@
 package com.h2sm.testtasksportsoft.controllers;
 
 import com.h2sm.testtasksportsoft.dto.UserCreate;
-import com.h2sm.testtasksportsoft.dto.UserLogin;
 import com.h2sm.testtasksportsoft.service.impl.BookService;
 import com.h2sm.testtasksportsoft.service.impl.UserService;
 import lombok.AllArgsConstructor;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @AllArgsConstructor
@@ -22,20 +22,27 @@ public class LoginController {
     public String getLogin(Model model){
         return "login";
     }
+    @RequestMapping("/welcome1")
+    public ModelAndView getWelcomePageAsModel() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
 
     @GetMapping("/registration")
     public String getRegister(Model model){
         return "registration";
     }
 
-    @PostMapping("/doLogin")
+    @GetMapping("/doLogin")
     public String loginUser(Model model) {
-        var user = new UserLogin(model.getAttribute("login").toString(), model.getAttribute("password").toString());
-        try {
-            model.addAttribute("contacts", userService.doLogin(user));
-        } catch (Exception e) {
-            return "error";
-        }
+//        var user = new UserLogin(model.getAttribute("login").toString(), model.getAttribute("password").toString());
+//        try {
+//            model.addAttribute("contacts", userService.doLogin(user));
+//        } catch (Exception e) {
+//            return "error";
+//        }
        // model.addAttribute("book")
         return "redirect:/main";
     }

@@ -23,7 +23,7 @@ public class BookMapper implements Mapper<Books, Book> {
                 .bookId(entity.getBookId())
                 .bookName(entity.getBookName())
                 .bookAuthors(authors)
-                .bookGenre(genres)
+                .bookGenres(genres)
                 .bookDescription(entity.getBookDescription())
                 .amountOfBooks(entity.getAmountOfBooks())
                 .build();
@@ -31,11 +31,13 @@ public class BookMapper implements Mapper<Books, Book> {
 
     @Override
     public Books DTOtoEntity(Book dto) {
-        var genres = dto.getBookGenre().stream().map(genreMapper::DTOtoEntity).collect(Collectors.toList());
+        var genres = dto.getBookGenres().stream().map(genreMapper::DTOtoEntity).collect(Collectors.toList());
         var authors = dto.getBookAuthors().stream().map(authorMapper::DTOtoEntity).collect(Collectors.toList());
         return Books.builder()
                 .bookId(dto.getBookId())
                 .bookName(dto.getBookName())
+                .listOfAuthors(authors)
+                .listOfGenres(genres)
                 .bookDescription(dto.getBookDescription())
                 .amountOfBooks(dto.getAmountOfBooks())
                 .build();
