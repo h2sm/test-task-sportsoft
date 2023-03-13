@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Builder
 @Data
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "authors")
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorEntity {
+public class Authors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
@@ -23,7 +23,7 @@ public class AuthorEntity {
     private String authorDescription;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_of_entity", referencedColumnName = "user_id")
-    private UserEntity ownerOfEntity;
+    private Users ownerOfEntity;
     @Column(name = "path_to_picture")
     private String pathToPicture;
     //largeObject;
