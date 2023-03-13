@@ -6,6 +6,9 @@ import lombok.Data;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Set;
+
 @Builder
 @Data
 @Entity
@@ -13,6 +16,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Books {
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.ALL
+            })
+    @JoinTable(name = "booksauthors",
+            joinColumns = {@JoinColumn(name = "book_id"),
+            }, inverseJoinColumns = @JoinColumn( name="author_id"))
+    Set<Authors> listOfAuthors;
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.ALL
+            })
+
+    @JoinTable(name = "booksgenres",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = @JoinColumn( name="genre_id"))
+    Set<Genres> listOfGenres;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")

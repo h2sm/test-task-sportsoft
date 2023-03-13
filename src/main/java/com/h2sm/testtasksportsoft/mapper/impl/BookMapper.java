@@ -16,10 +16,14 @@ public class BookMapper implements Mapper<Books, Book> {
 
     @Override
     public Book entityToDTO(Books entity) {
+        var genres = entity.getListOfGenres().stream().map(genreMapper::entityToDTO).collect(Collectors.toList());
+        var authors = entity.getListOfAuthors().stream().map(authorMapper::entityToDTO).collect(Collectors.toList());
 
         return Book.builder()
                 .bookId(entity.getBookId())
                 .bookName(entity.getBookName())
+                .bookAuthors(authors)
+                .bookGenre(genres)
                 .bookDescription(entity.getBookDescription())
                 .amountOfBooks(entity.getAmountOfBooks())
                 .build();

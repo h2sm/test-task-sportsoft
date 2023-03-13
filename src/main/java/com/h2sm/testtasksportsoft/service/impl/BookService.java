@@ -3,7 +3,9 @@ package com.h2sm.testtasksportsoft.service.impl;
 import com.h2sm.testtasksportsoft.dto.Book;
 import com.h2sm.testtasksportsoft.entity.Books;
 import com.h2sm.testtasksportsoft.mapper.impl.BookMapper;
+import com.h2sm.testtasksportsoft.repository.AuthorRepository;
 import com.h2sm.testtasksportsoft.repository.BookRepository;
+import com.h2sm.testtasksportsoft.repository.GenreRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,12 +16,12 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 @Transactional
 public class BookService {
-
-    private BookRepository bookRepository;
-    private BookMapper bookMapper;
+    private final GenreRepository genreRepository;
+    private final AuthorRepository repository;
+    private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
     public void create(Book book) {
         bookRepository.save(mapBook(book));
@@ -27,7 +29,12 @@ public class BookService {
 
     public Book read(Book book) {
         var bookEntity = bookRepository.findById(book.getBookId()).get();
+
         return mapBook(bookEntity);
+    }
+
+    public Book getBookById(Long id){
+        return mapBook(bookRepository.findById((long) 1).get());
     }
 
     public void update(Book book) {
