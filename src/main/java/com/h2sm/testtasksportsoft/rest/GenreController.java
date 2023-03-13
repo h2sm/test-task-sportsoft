@@ -7,32 +7,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api")
+@RestController("/api/genres")
 @AllArgsConstructor
 public class GenreController {
     private GenreService genreService;
 
-    @GetMapping("/genres")
+    @GetMapping()
     public List<Genre> getAllGenres(){
         return genreService.getAllGenres();
     }
 
-    @GetMapping("/genres/{id}")
+    @GetMapping("/{id}")
     public Genre getGenreById(@PathVariable Long id){
         return genreService.read(id);
     }
 
-    @PatchMapping("/genres/")
+    @PatchMapping()
     public void updateGenre(@RequestBody Genre genre){
         genreService.update(genre);
     }
 
-    @DeleteMapping("/genres/{id}")
+    @DeleteMapping("/{id}")
     public void deleteGenre(@PathVariable Long id){
         genreService.delete(id);
     }
 
-    @PostMapping("/genres")
+    @PostMapping()
     public void addGenre(@RequestBody Genre genre){
         genreService.create(genre);
     }

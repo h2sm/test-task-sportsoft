@@ -48,6 +48,9 @@ public class BookService {
     public void delete(Book object) {
         bookRepository.delete(mapBook(object));
     }
+    public void delete(Long id) {
+        bookRepository.deleteById(id);
+    }
 
     public List<Book> getBookByNameContaining(String bookName) {
         return bookRepository.getAllByBookNameContaining(bookName)

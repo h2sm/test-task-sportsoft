@@ -7,31 +7,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api")
+@RestController("/api/authors")
 @AllArgsConstructor
 public class AuthorController {
     private AuthorsService authorsService;
 
-    @GetMapping("/authors")
+    @GetMapping()
     public List<Author> getAllAuthors(){
         return authorsService.getAllAuthors();
     }
 
-    @GetMapping("/authors/{id}")
+    @GetMapping("/{id}")
     public Author getAuthorById(@PathVariable Long id){
         return authorsService.read(id);
     }
 
-    @PatchMapping("/authors")
+    @PatchMapping()
     public void updateAuthor(@RequestBody Author author){
         authorsService.update(author);
     }
 
-    @DeleteMapping("/authors/{id}")
+    @DeleteMapping("/{id}")
     public void deleteAuthor(@PathVariable Long id){
         authorsService.delete(id);
     }
 
+    @PostMapping()
     public void saveAuthor(@RequestBody Author author){
         authorsService.create(author);
     }
