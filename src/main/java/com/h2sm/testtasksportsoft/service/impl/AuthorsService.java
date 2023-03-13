@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 @Transactional
@@ -28,6 +31,10 @@ public class AuthorsService {
 
     public void delete(Long id) {
         authorRepository.delete(authorRepository.findById(id).get());
+    }
+
+    public List<Author> getAllAuthors(){
+        return authorRepository.findAll().stream().map(authorMapper::entityToDTO).collect(Collectors.toList());
     }
 
 
