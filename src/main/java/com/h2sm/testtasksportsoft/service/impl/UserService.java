@@ -22,17 +22,17 @@ public class UserService implements BaseService<User> {
 
     @Override
     public void create(User object) {
-
+        userRepository.save(userMapper.DTOtoEntity(object));
     }
 
     @Override
     public User read(User object) {
-        return null;
+        return userMapper.entityToDTO(userRepository.findById(object.getUserId()).get());
     }
 
     @Override
     public void update(User object) {
-
+        create(object);
     }
 
     @Override
@@ -42,7 +42,6 @@ public class UserService implements BaseService<User> {
 
     public void createUser(UserCreate userCreate){
         userRepository.save(new Users(userCreate.getLogin(), userCreate.getUserFullName(), userCreate.getPassword()));
-        //userRepository.save();
     }
 
     public User doLogin(UserLogin userLogin) throws Exception {

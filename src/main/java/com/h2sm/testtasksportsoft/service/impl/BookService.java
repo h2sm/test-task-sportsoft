@@ -33,7 +33,6 @@ public class BookService {
 
     public Book read(Book book) {
         var bookEntity = bookRepository.findById(book.getBookId()).get();
-
         return mapBook(bookEntity);
     }
 
@@ -45,9 +44,6 @@ public class BookService {
         create(book);
     }
 
-    public void delete(Book object) {
-        bookRepository.delete(mapBook(object));
-    }
     public void delete(Long id) {
         bookRepository.deleteById(id);
     }
