@@ -8,6 +8,7 @@ import com.h2sm.testtasksportsoft.repository.BookRepository;
 import com.h2sm.testtasksportsoft.repository.GenreRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,16 +46,18 @@ public class BookService {
     }
 
     public void delete(Long id) {
+
         bookRepository.deleteById(id);
     }
 
+    @SneakyThrows
     public List<Book> getBookByNameContaining(String bookName) {
         return bookRepository.getAllByBookNameContaining(bookName)
                 .stream()
                 .map(bookMapper::entityToDTO)
                 .collect(Collectors.toList());
     }
-
+    @SneakyThrows
     public List<Book> getBooksForThisUser(Long id) {
         return bookRepository.getAllByOwnerOfEntity_UserId(id)
                 .stream()
@@ -74,6 +77,10 @@ public class BookService {
 
     public void saveImage(){
         //ImageIO.
+    }
+
+    private void deleteImage(String path){
+        new File(path).delete();
     }
 
     private Book mapBook(Books books) {

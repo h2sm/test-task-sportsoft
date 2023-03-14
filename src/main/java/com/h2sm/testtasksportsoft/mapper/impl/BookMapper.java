@@ -4,8 +4,12 @@ import com.h2sm.testtasksportsoft.dto.Book;
 import com.h2sm.testtasksportsoft.entity.Books;
 import com.h2sm.testtasksportsoft.mapper.Mapper;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Component
@@ -15,6 +19,7 @@ public class BookMapper implements Mapper<Books, Book> {
     private GenreMapper genreMapper;
 
     @Override
+    @SneakyThrows
     public Book entityToDTO(Books entity) {
         var genres = entity.getListOfGenres().stream().map(genreMapper::entityToDTO).collect(Collectors.toList());
         var authors = entity.getListOfAuthors().stream().map(authorMapper::entityToDTO).collect(Collectors.toList());
@@ -24,6 +29,7 @@ public class BookMapper implements Mapper<Books, Book> {
                 .bookName(entity.getBookName())
                 .bookAuthors(authors)
                 .bookGenres(genres)
+                .image(ImageIO.read(new File(entity.getPathToPicture())))
                 .bookDescription(entity.getBookDescription())
                 .amountOfBooks(entity.getAmountOfBooks())
                 .build();
