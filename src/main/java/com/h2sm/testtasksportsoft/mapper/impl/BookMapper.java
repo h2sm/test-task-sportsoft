@@ -32,6 +32,7 @@ public class BookMapper implements Mapper<Books, Book> {
                 .image(ImageIO.read(new File(entity.getPathToPicture())))
                 .bookDescription(entity.getBookDescription())
                 .amountOfBooks(entity.getAmountOfBooks())
+                .pathToPicture(entity.getPathToPicture())
                 .build();
     }
 
@@ -46,6 +47,7 @@ public class BookMapper implements Mapper<Books, Book> {
                 .listOfGenres(genres)
                 .bookDescription(dto.getBookDescription())
                 .amountOfBooks(dto.getAmountOfBooks())
+                .pathToPicture(dto.getPathToPicture())
                 .build();
     }
 }

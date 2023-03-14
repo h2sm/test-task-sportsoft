@@ -30,7 +30,7 @@ public class BookService {
 
     public void create(Book book) {
         bookRepository.save(mapBook(book));
-        //saveImage(book.getImage(), pathToPicture);
+        saveImage(book.getImage(), book.getPathToPicture());
     }
 
     public Book read(Book book) {
@@ -47,8 +47,9 @@ public class BookService {
     }
 
     public void delete(Long id) {
-
-        bookRepository.deleteById(id);
+        var book = bookRepository.findById(id).get();
+        deleteImage(book.getPathToPicture());
+        bookRepository.delete(book);
     }
 
     @SneakyThrows

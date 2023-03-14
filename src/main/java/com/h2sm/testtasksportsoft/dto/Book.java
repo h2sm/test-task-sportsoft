@@ -18,4 +18,5 @@ public class Book {
     private String bookDescription;
     private int amountOfBooks;
     private BufferedImage image;
+    private String pathToPicture;
 }
