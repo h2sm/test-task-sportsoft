@@ -30,6 +30,7 @@ public class BookService {
 
     public void create(Book book) {
         bookRepository.save(mapBook(book));
+        //saveImage(book.getImage(), pathToPicture);
     }
 
     public Book read(Book book) {
@@ -71,12 +72,14 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public BufferedImage loadPicture(String pathToPicture) throws IOException {
+    @SneakyThrows
+    public BufferedImage loadPicture(String pathToPicture) {
         return ImageIO.read(new File(pathToPicture));
     }
 
-    public void saveImage(){
-        //ImageIO.
+    @SneakyThrows
+    public void saveImage(BufferedImage bufferedImage, String path){
+        ImageIO.write(bufferedImage, ".png", new File(path));
     }
 
     private void deleteImage(String path){
